@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Hello</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+    </head>
+    <body>
+        <div id="container">
+            <div id="cabecera">
+                <img src="https://drive.google.com/uc?id=16ib0XlKsOw_pGFtgTskrhbStzEQHiHeT">
+                  Hello World!
+                <span id="tagline">
+                    Flask
+                </span>
+            </div>
+            <div id="post">
+                <h1>Visor de IP</h1>
+                
+                {% if user_ip %}
+                <p>Tu IP es {{ user_ip }}</p>
+                {% else %}
+                <a href="{{ url_for('index') }}">Ir a inicio</a>
+                {% endif %}
+                
+                <ul>
+                {% for element in list_1 %}
+                    <li>{{ element }}</li>
+                {% endfor %}
+                </ul>
+                
+            </div>
+            <div id="footer">
+                DevGG
+            </div>
+        </div>
+    </body>
+</html>
