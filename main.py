@@ -23,3 +23,5 @@ def hello():
         'list_1': list_1
     }
     return render_template('hello.html', **context)  #expand dictionary as a context
+
+#@app.route('/comm_graph')
