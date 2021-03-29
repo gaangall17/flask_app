@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, redirect, render_template
+from flask import Flask, request, make_response, redirect, render_template, session
 import graph
 from flask_bootstrap import Bootstrap
 
@@ -6,6 +6,7 @@ from flask_bootstrap import Bootstrap
 app = Flask(__name__)
 bootstrap = Bootstrap(app) #Init bootstrap
 
+app.config['SECRET_KEY'] = 'SUPER SECRETO' #To create session and encrypt cookies
 
 options = ['Element 1','Element 2','Element 3']
 
@@ -23,14 +24,16 @@ def index():
     user_ip = request.remote_addr
     
     response = make_response(redirect('/hello'))
-    response.set_cookie('user_ip', user_ip)       #save IP in cookie for its use in other url
+    #response.set_cookie('user_ip', user_ip)       #save IP in cookie for its use in other url
+    session['user_ip'] = user_ip
 
     return response     
 
 
 @app.route('/hello')
 def hello():
-    user_ip = request.cookies.get('user_ip')
+    #user_ip = request.cookies.get('user_ip')
+    user_ip = session.get('user_ip')
     context = {
         'user_ip': user_ip,
         'options': options
