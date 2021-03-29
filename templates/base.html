@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.0.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.0.min.js"
+        crossorigin="anonymous"></script>
+    <head>
+        <title>
+            {% block title%} C&S |{% endblock %} 
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+    </head>
+    <body>
+        <header>
+            {% include 'navbar.html' %}
+        </header>
+        <div id="container">
+            <div id="cabecera">
+                  Control y Scada
+                <span id="tagline">
+                    Interagua
+                </span>
+            </div>
+            <div id="post">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+            <div id="footer">
+                Design by: GG
+            </div>
+        </div>
+    </body>
+
+
+</html>

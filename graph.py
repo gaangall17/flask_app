@@ -1,6 +1,7 @@
 from bokeh.plotting import ColumnDataSource, figure, output_file, show
 from bokeh.tile_providers import CARTODBPOSITRON, OSM, ESRI_IMAGERY, get_provider
 from bokeh.transform import factor_cmap, factor_mark
+from bokeh.embed import components
 import numpy as np
 import csv
 
@@ -31,8 +32,8 @@ def readcsv(name):
             result.append(row)
     return result
 
-if __name__=="__main__":
-    
+
+def render_map():
     locations = readcsv("inputs/location_scada.csv")
     y = []
     x = []
@@ -42,7 +43,6 @@ if __name__=="__main__":
     for location in locations:
         y.append(lat_to_web_mercator(float(location[2])))
         x.append(lon_to_web_mercator(float(location[3])))
-        name.append(location[0])
         if 'Radio.Modbus' in location[0]:
             channel.append('Radio Modbus')
         elif 'Radio.DNP3' in location[0]:
@@ -53,14 +53,27 @@ if __name__=="__main__":
             channel.append('GPRS Modbus')
         elif 'LAN' in location[0]:
             channel.append('LAN')
+        elif 'Repetidora' in location[0]:
+            channel.append('Repetidora') 
+        elif 'Servidor' in location[0]:
+            channel.append('Servidor') 
         else:
             channel.append('Other')
+        point_positions = []
+        position = 0
+        while position != -1:
+            position = location[0].find(".",position)
+            if position != -1:
+                point_positions.append(position)
+                position += 1
+        
+        name.append(location[0][point_positions[-1]+1:])
 
     output_file("map_scada.html")
     tile_provider = get_provider(OSM)
 
-    type_channel = ['Radio DNP3','Radio Modbus','GPRS DNP3','GPRS Modbus','LAN']
-    marker_channel = ['triangle','triangle_dot','circle','circle_dot','square']
+    type_channel = ['Radio DNP3','Radio Modbus','GPRS DNP3','GPRS Modbus','LAN','Repetidora','Servidor']
+    marker_channel = ['triangle','triangle_dot','circle','circle_dot','square','star','plus']
 
     data = ColumnDataSource(data=dict(
         x=x,
@@ -90,13 +103,22 @@ if __name__=="__main__":
     #    if channel[i] == 'GPRS DNP3':
     #        map.square(x[i],y[i],size=10,fill_alpha=0.5,fill_color='red',  source=ColumnDataSource(data=dict(name=name[i],channel=channel[i])))
 
-    map.scatter(source=data, legend_field="channel", fill_alpha=0.4, size=10,
+    map.scatter(source=data, legend_field="channel", fill_alpha=0.6, size=20,
           marker=factor_mark('channel', marker_channel, type_channel))
           #color=factor_cmap('species', 'Category10_3', SPECIES))
-        
-    show(map)
+    
+    map.line([x[128], x[125]],[y[128],y[125]], line_width=2, line_color='black', name='Enlace Casa Quimica - Las Cabras')
+
+    script, div = components(map)
+
+    return script, div
+
+    #show(map)
 
     #map.circle('x','y',radius=100,fill_alpha=0.5,fill_color='blue', source = data)
 
     #TOOLTIPS = [('Organisation', '@OrganisationName')]
     #p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
+
+if __name__=="__main__":
+    pass

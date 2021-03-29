@@ -1,0 +1,8 @@
+Instalar dependencias:
+    pip install -r requirements.txt
+
+crear variable de ambiente:
+    (flask) PS C:\Users\gagal\Documents\flask_app2\flask\Scripts> $env:FLASK_APP = "main.py"
+    (flask) PS C:\Users\gagal\Documents\flask_app2\flask\Scripts> $env:FLASK_DEBUG = 1
+
+    misma carpeta que el "main.py"
