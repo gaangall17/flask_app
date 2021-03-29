@@ -43,3 +43,6 @@ body
     color: darkblue;
     text-align: right;
 }
+img {
+    max-width: 400px;
+}

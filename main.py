@@ -1,9 +1,21 @@
 from flask import Flask, request, make_response, redirect, render_template
 import graph
+from flask_bootstrap import Bootstrap
+
 
 app = Flask(__name__)
-#app.run(host='192.168.0.106')
+bootstrap = Bootstrap(app) #Init bootstrap
+
+
 options = ['Element 1','Element 2','Element 3']
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', error=error)
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template('500.html', error=error)
 
 # url root where app starts
 @app.route('/')     
