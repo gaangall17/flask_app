@@ -1,7 +1,5 @@
-{% extends 'bootstrap/base.html' %}
-    {% block html %}
-    
-
+<!DOCTYPE html>
+<html lang="en">
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.0.min.js"
@@ -9,20 +7,16 @@
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.0.min.js"
         crossorigin="anonymous"></script>
     
-
-
-    {% block head %}
-        {{ super() }}
-
+    
+    <head>
         <title>
             {% block title%} C&S |{% endblock %} 
         </title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
-
-    {% endblock %}
+    </head>
     
-    {% block body %}
-
+    <body>
+        
         <div id="container">
             <div id="cabecera">
                   Control y Scada
@@ -30,17 +24,19 @@
                     Interagua
                 </span>
             </div>
-            {% block navbar %}
+            <header>
                 {% include 'navbar.html' %}
-            {% endblock %}
-            {% block content %}
+            </header>
+            <div id="post">
+                {% block content %}
 
-            {% endblock %}
+                {% endblock %}
+            </div>
             <div id="footer">
                 Design by: GG
             </div>
         </div>
+    </body>
 
-    {% endblock %}
 
-{% endblock %}
+</html>

@@ -37,6 +37,7 @@ def hello():
     }
     return render_template('hello.html', **context)  #expand dictionary as a context
 
+
 @app.route('/comm_map')
 def comm_map():
     script, div = graph.render_map()
@@ -45,3 +46,8 @@ def comm_map():
         'map_div': div
     }
     return render_template('comm_map.html', **context)
+
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
