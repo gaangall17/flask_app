@@ -2,6 +2,8 @@ from bokeh.plotting import ColumnDataSource, figure, output_file, show
 from bokeh.tile_providers import CARTODBPOSITRON, OSM, ESRI_IMAGERY, get_provider
 from bokeh.transform import factor_cmap, factor_mark
 from bokeh.embed import components
+from bokeh.models import CheckboxGroup, CustomJS
+from bokeh.layouts import row
 import numpy as np
 import csv
 
@@ -57,6 +59,8 @@ def render_map():
             channel.append('Repetidora') 
         elif 'Servidor' in location[0]:
             channel.append('Servidor') 
+        elif 'New' in location[0]:
+            channel.append('New') 
         else:
             channel.append('Other')
         point_positions = []
@@ -72,8 +76,8 @@ def render_map():
     output_file("map_scada.html")
     tile_provider = get_provider(OSM)
 
-    type_channel = ['Radio DNP3','Radio Modbus','GPRS DNP3','GPRS Modbus','LAN','Repetidora','Servidor']
-    marker_channel = ['triangle','triangle_dot','circle','circle_dot','square','star','plus']
+    type_channel = ['Radio DNP3','Radio Modbus','GPRS DNP3','GPRS Modbus','LAN','Repetidora','Servidor','New']
+    marker_channel = ['triangle','triangle_dot','circle','circle_dot','square','star','plus','x']
 
     data = ColumnDataSource(data=dict(
         x=x,
@@ -103,13 +107,24 @@ def render_map():
     #    if channel[i] == 'GPRS DNP3':
     #        map.square(x[i],y[i],size=10,fill_alpha=0.5,fill_color='red',  source=ColumnDataSource(data=dict(name=name[i],channel=channel[i])))
 
-    map.scatter(source=data, legend_field="channel", fill_alpha=0.6, size=20,
+    l0 = map.scatter(source=data, legend_field="channel", fill_alpha=0.6, size=20,
           marker=factor_mark('channel', marker_channel, type_channel))
           #color=factor_cmap('species', 'Category10_3', SPECIES))
     
-    map.line([x[128], x[125]],[y[128],y[125]], line_width=2, line_color='black', name='Enlace Casa Quimica - Las Cabras')
+    l1 = map.line([x[128], x[125]],[y[128],y[125]], line_width=2, line_color='black', name='Enlace Casa Quimica - Las Cabras')
 
-    script, div = components(map)
+    checkbox = CheckboxGroup(labels=["Outstations", "Links"],active=[0, 1],width=100)
+    checkbox.js_on_click(CustomJS(code="""xline.visible = false; // same xline passed in from args
+                            yline.visible = false;
+                            // cb_obj injected in by the callback
+                            if (cb_obj.active.includes(0)){xline.visible = true;} // 0 index box is xline
+                            if (cb_obj.active.includes(1)){yline.visible = true;}""",
+                    args={'xline': l0, 'yline': l1}
+    ))
+
+    layout = row(map, checkbox)
+
+    script, div = components(layout)
 
     return script, div
 

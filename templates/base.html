@@ -27,12 +27,23 @@
             <div id="cabecera">
                   Control y Scada
                 <span id="tagline">
-                    Interagua
+                    {% block header %}Interagua |{% endblock %}
                 </span>
             </div>
             {% block navbar %}
                 {% include 'navbar.html' %}
             {% endblock %}
+
+            {% for message in get_flashed_messages() %}
+                <div class="alert aler-success alert-dismissible">
+                    <button type="button"
+                        data-dismiss="alert"
+                        class="close">&times;
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             {% block content %}
 
             {% endblock %}
@@ -41,6 +52,10 @@
             </div>
         </div>
 
+    {% endblock %}
+
+    {% block scripts %}
+        {{ super() }}
     {% endblock %}
 
 {% endblock %}
