@@ -22,15 +22,6 @@
     {% else %}
         <a href="{{ url_for('index') }}">Ir a inicio</a>
     {% endif %}
-
-    <div class="container">
-        <!-- <form action="{{ url_for('hello') }}" method="POST">
-            {{ login_form.username.label }}
-            {{ login_form.username }}
-
-        </form> -->
-        {{ wtf.quick_form(login_form) }}
-    </div>
                     
     <ul>
         {% for element in options %}

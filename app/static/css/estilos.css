@@ -40,9 +40,20 @@ body
 }
 #footer
 {
-    color: darkblue;
-    text-align: right;
+    color: gray;
+    text-align: center;
+    font-size: 10px;
+    padding: 5em;
 }
 img {
     max-width: 400px;
+}
+#login
+{
+    background: cyan;
+    width: 30%;
+    text-align: left;
+    margin: 0 auto;
+    padding: 1em;
+    border: 1px solid #DDD;
 }

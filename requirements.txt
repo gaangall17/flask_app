@@ -2,3 +2,5 @@ flask
 bokeh
 flask-bootstrap
 flask-wtf
+flask-testing
+blinker
