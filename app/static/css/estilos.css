@@ -1,49 +1,74 @@
+:root {
+    --color1: #0B090A;
+    --color2: #161A1D;
+    --color3: #660708;
+    --color4: #A4161A;
+    --color5: #BA181B;
+    --color6: #E5383B;
+    --color7: #B1A7A6;
+    --color8: #D3D3D3;
+    --color9: #F5F3F4;
+    --color10: #FFFFFF;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 62.5%;
+}
 body
 {
-    background: Black;
+    background: var(--color10);
     color: #333;
-    text-align: center;
     font-family: 'Trebuchet MS';
     font-size: 16px;
     margin: 0;
     padding: 0;
 }
-#cabecera
+header
 {
-    background: #33A;
-    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
-    color: white;
+    background: var(--color3);
+    color: var(--color9);
     margin: 0;
-    padding: 0.5em 0 0.5em 1em;
+    /* padding: 2rem 1rem; */
     font-weight: bold;
-    font-size: 40px;
-    text-align: center center;
+    font-size: 2rem;
+    text-align: left;
+    display: block;
 }
-#cabecera #tagline
+header #tagline
 {
-    padding: 1em 0 0 0;
+    padding: 1rem 0 0 0;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 1rem;
+    height: 10vh;
 }
-#container
+nav {
+    display: block;
+    height: 10vh;
+}
+main
 {
-    background: white;
-    width: 100%;
+    background: var(--color10);
+    width: 100vw;
+    height: 80vh;
     text-align: left;
     margin: 0 auto;
-    padding: 1em;
-    border: 1px solid #DDD;
+    padding: 1rem;
 }
 #post
 {
-    font-size: 20px;
+    font-size: 2rem;
 }
-#footer
+footer
 {
-    color: gray;
+    color: var(--color7);
     text-align: center;
-    font-size: 10px;
-    padding: 5em;
+    font-size: 1.5rem;
+    padding: 2rem;
+    height: 10vh;
 }
 img {
     max-width: 400px;

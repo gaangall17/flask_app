@@ -2,15 +2,23 @@ from flask import request, make_response, redirect, render_template, session, ur
 import graph
 
 import unittest
+import time
 
 from app import create_app
 from app.forms import LoginForm
+
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = create_app()
 
 options = ['Element 1','Element 2','Element 3']
 
+def timed():
+    print(f'Time is {time}')
 
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(timed,'interval',seconds=5)
+sched.start()
 
 @app.cli.command()
 def test():

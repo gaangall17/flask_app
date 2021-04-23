@@ -3,7 +3,7 @@ from bokeh.tile_providers import CARTODBPOSITRON, OSM, ESRI_IMAGERY, get_provide
 from bokeh.transform import factor_cmap, factor_mark
 from bokeh.embed import components
 from bokeh.models import CheckboxGroup, CustomJS
-from bokeh.layouts import row
+from bokeh.layouts import row, column, gridplot
 import numpy as np
 import csv
 
@@ -73,7 +73,7 @@ def render_map():
         
         name.append(location[0][point_positions[-1]+1:])
 
-    output_file("map_scada.html")
+    #output_file("map_scada.html")
     tile_provider = get_provider(OSM)
 
     type_channel = ['Radio DNP3','Radio Modbus','GPRS DNP3','GPRS Modbus','LAN','Repetidora','Servidor','New']
@@ -96,7 +96,7 @@ def render_map():
     x_axis_end = x_axis_start + SIZE
     y_axis_end = y_axis_start + SIZE
     
-    map = figure(x_range=(x_axis_start, x_axis_end), y_range=(y_axis_start, y_axis_end), x_axis_type="mercator", y_axis_type="mercator",plot_width=750,plot_height=750,tooltips=TOOLTIPS)
+    map = figure(x_range=(x_axis_start, x_axis_end), y_range=(y_axis_start, y_axis_end), x_axis_type="mercator", y_axis_type="mercator",tooltips=TOOLTIPS)
     
     
     map.add_tile(tile_provider)
@@ -122,7 +122,8 @@ def render_map():
                     args={'xline': l0, 'yline': l1}
     ))
 
-    layout = row(map, checkbox)
+    map.sizing_mode = "stretch_both" 
+    layout = column(checkbox, map)
 
     script, div = components(layout)
 
