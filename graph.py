@@ -41,8 +41,10 @@ def render_map():
     x = []
     channel = []
     name = []
+    coord = []
 
     for location in locations:
+        coord.append(str(round(float(location[2]),4)) + ", " + str(round(float(location[3]),4)))
         y.append(lat_to_web_mercator(float(location[2])))
         x.append(lon_to_web_mercator(float(location[3])))
         if 'Radio.Modbus' in location[0]:
@@ -83,12 +85,14 @@ def render_map():
         x=x,
         y=y,
         channel=channel,
-        name=name
+        name=name,
+        coord=coord
     ))
 
     TOOLTIPS = [
         ("Nombre", "@name"),
         ("Canal", "@channel"),
+        ("Coordenadas","@coord")
     ]
 
     x_axis_start, y_axis_start =  wgs84_to_web_mercator(-80.1,-2.3)
@@ -96,7 +100,7 @@ def render_map():
     x_axis_end = x_axis_start + SIZE
     y_axis_end = y_axis_start + SIZE
     
-    map = figure(x_range=(x_axis_start, x_axis_end), y_range=(y_axis_start, y_axis_end), x_axis_type="mercator", y_axis_type="mercator",tooltips=TOOLTIPS)
+    map = figure(x_range=(x_axis_start, x_axis_end), y_range=(y_axis_start, y_axis_end), x_axis_type="mercator", y_axis_type="mercator",tooltips=TOOLTIPS,width=1500,height=700)
     
     
     map.add_tile(tile_provider)
@@ -122,7 +126,7 @@ def render_map():
                     args={'xline': l0, 'yline': l1}
     ))
 
-    map.sizing_mode = "stretch_both" 
+    #map.sizing_mode = "stretch_both" 
     layout = column(checkbox, map)
 
     script, div = components(layout)

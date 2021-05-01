@@ -17,7 +17,7 @@ def timed():
     print(f'Time is {time}')
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(timed,'interval',seconds=5)
+sched.add_job(timed,'interval',seconds=180)
 sched.start()
 
 @app.cli.command()
