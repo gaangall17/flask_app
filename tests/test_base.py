@@ -1,5 +1,5 @@
 from flask_testing import TestCase
-from main import app
+from application import app
 from flask import current_app, url_for
 
 class MainTest(TestCase):

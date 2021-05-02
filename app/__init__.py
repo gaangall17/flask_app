@@ -4,10 +4,10 @@ from .config import Config
 from .auth import auth
 
 def create_app():
-    application = app = Flask(__name__)
-    bootstrap = Bootstrap(app) #Init bootstrap
+    application = Flask(__name__)
+    bootstrap = Bootstrap(application) #Init bootstrap
 
-    app.config.from_object(Config)
-    app.register_blueprint(auth)
+    application.config.from_object(Config)
+    application.register_blueprint(auth)
 
-    return app
+    return application
