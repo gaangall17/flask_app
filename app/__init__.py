@@ -4,7 +4,7 @@ from .config import Config
 from .auth import auth
 
 def create_app():
-    app = Flask(__name__)
+    application = app = Flask(__name__)
     bootstrap = Bootstrap(app) #Init bootstrap
 
     app.config.from_object(Config)
