@@ -7,4 +7,5 @@ blinker
 psycopg2
 sqlalchemy
 apscheduler
-unittest
+psycopg2-binary
+flask-sqlalchemy

@@ -1,5 +1,7 @@
 from flask import request, make_response, redirect, render_template, session, url_for, flash
 import graph
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
 
 import unittest
 import time
@@ -7,9 +9,33 @@ import time
 from app import create_app
 from app.forms import LoginForm
 
+from credentials.credentials import get_credentials
+
 from apscheduler.schedulers.background import BackgroundScheduler
 
 app = create_app()
+app.config['SQLALCHEMY_DATABASE_URI'] = get_credentials('postgreAWS')
+metadata = MetaData(schema="control_scada")
+db = SQLAlchemy(app, metadata=metadata)
+
+
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String())
+    name = db.Column(db.String())
+    last_name = db.Column(db.String())
+    email = db.Column(db.String())
+    password = db.Column(db.String())
+    role_id = db.Column(db.Integer())
+    phone_work = db.Column(db.String())
+    phone_personal = db.Column(db.String())
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+print(User.query.all())
+
 
 options = ['Element 1','Element 2','Element 3']
 
