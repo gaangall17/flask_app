@@ -23,6 +23,9 @@
                 <li><a href="{{ url_for('comm_map') }}">Mapa</a></li>
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                 <li><a href="https://google.com" target="_blank">Google</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

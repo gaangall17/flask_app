@@ -9,3 +9,4 @@ sqlalchemy
 apscheduler
 psycopg2-binary
 flask-sqlalchemy
+flask-login
