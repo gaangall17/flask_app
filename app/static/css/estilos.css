@@ -9,6 +9,11 @@
     --color8: #D3D3D3;
     --color9: #F5F3F4;
     --color10: #FFFFFF;
+    --colorA1: #8ECAE6;
+    --colorA2: #219EBC;
+    --colorA3: #023047;
+    --colorA4: #FFB703;
+    --colorA5: #FB8500;
 }
 * {
     box-sizing: border-box;
@@ -38,16 +43,33 @@ header
     text-align: left;
     display: block;
 }
-header #tagline
+/* header #tagline
 {
     padding: 1rem 0 0 0;
     font-weight: normal;
     font-size: 1rem;
     height: 10vh;
-}
-nav {
+} */
+.navbar {
     display: block;
-    height: 10vh;
+    height: 8vh;
+    background: var(--colorA3);
+    margin: auto;
+    border: none;
+}
+.navbar > .container{
+    padding: auto 1.5rem;
+    height: 8vh;
+}
+.navbar-collapse > .nav{
+    height: 8vh;
+}
+.nav li a{
+    height: 8vh;
+    line-height: 3rem;
+}
+.navbar-brand img{
+    height: 3.5rem;
 }
 main
 {
@@ -55,8 +77,8 @@ main
     width: 100vw;
     height: 80vh;
     text-align: left;
-    margin: 0 auto;
-    padding: 1rem;
+    margin: auto;
+    padding: 2rem 2rem;
 }
 #post
 {
@@ -75,10 +97,23 @@ img {
 }
 #login
 {
-    background: cyan;
-    width: 30%;
+    background: var(--colorA1);
+    width: 100%-4rem;
     text-align: left;
-    margin: 0 auto;
-    padding: 1em;
-    border: 1px solid #DDD;
+    margin: 10rem auto;
+    padding: 2.5rem;
+    border-radius: 2.5rem;
+    /*box-shadow: 0.5rem 0.5rem 2rem var(--colorA2);*/
+    /*border: 2px solid var(--colorA3);*/
+}
+#login > h1{
+    text-align: center;
+    padding: 2rem;
+    font-size: 2.5rem;
+    margin: auto;
+}
+@media (min-width: 440px){
+    #login{
+        width: 40rem;
+    }
 }

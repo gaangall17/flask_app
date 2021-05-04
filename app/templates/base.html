@@ -34,11 +34,13 @@
             <h2 id="tagline">
             {% block header %}Interagua |{% endblock %}
             </h2> -->
-            <nav>
-            {% block navbar %}
-                {% include 'navbar.html' %}
-            {% endblock %}
-            </nav>
+            {% if current_user.is_authenticated %}
+                <nav>
+                {% block navbar %}
+                    {% include 'navbar.html' %}
+                {% endblock %}
+                </nav>
+            {% endif %}
         </header>
         
 
