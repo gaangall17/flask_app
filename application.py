@@ -1,6 +1,6 @@
 from flask import request, make_response, redirect, render_template, session, url_for, flash
 from flask_login import login_required, current_user
-from app.sql_service import db
+from app.sql_service import db, get_my_requests, get_my_jobs
 import graph
 
 import unittest
@@ -66,25 +66,38 @@ def hello():
     #username = session.get('username')
     username = current_user.id
 
+    jobs = get_my_jobs(username)
+    requests = get_my_requests(username)
+
     context = {
         'user_ip': user_ip,
         'options': options,
-        'username': username
+        'username': username,
+        'jobs': jobs,
+        'requests': requests
     }
 
     return render_template('hello.html', **context)  #expand dictionary as a context
 
 
 @app.route('/comm_map')
+@login_required
 def comm_map():
     script, div = graph.render_map()
+    username = current_user.id
     context = {
         'map_script': script,
-        'map_div': div
+        'map_div': div,
+        'username': username
     }
     return render_template('comm_map.html', **context)
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    username = current_user.id
+    context = {
+        'username': username
+    }
+    return render_template('dashboard.html', **context)

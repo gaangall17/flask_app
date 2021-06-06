@@ -3,19 +3,15 @@
 
 {% block title %}
     {{ super() }}
-    Login
+    Sign Up
 {% endblock %}
 
 {% block content %}
     <div class="container" id="login">
-        <!-- <form action="{{ url_for('hello') }}" method="POST">
-            {{ login_form.username.label }}
-            {{ login_form.username }}
 
-        </form> -->
         <img src="{{ url_for('static', filename='images/login_logo.png') }}"
         alt="Login Logo">
-        {{ wtf.quick_form(login_form) }}
-        <a href="{{ url_for('auth.signup') }}">Not a user? Register here</a>
+        {{ wtf.quick_form(signup_form) }}
+        <a href="{{ url_for('auth.login') }}">Already a user? Log In</a>
     </div>        
 {% endblock %}     

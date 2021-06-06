@@ -14,6 +14,11 @@
     --colorA3: #023047;
     --colorA4: #FFB703;
     --colorA5: #FB8500;
+    --colorBrandGrey: #eef0f2;
+    --colorBrandDarkBlue: #011638;
+    --colorBrandBlue: #0d21a1;
+    --colorBrandYellow: #eec643;
+    --colorBrandBlack: #141414;
 }
 * {
     box-sizing: border-box;
@@ -50,7 +55,7 @@ header
     font-size: 1rem;
     height: 10vh;
 } */
-.navbar {
+/* .navbar {
     display: block;
     height: 8vh;
     background: var(--colorA3);
@@ -67,15 +72,37 @@ header
 .nav li a{
     height: 8vh;
     line-height: 3rem;
+} */
+.navbar-inverse {
+    background-color: var(--colorBrandDarkBlue);
+}
+.navbar-header{
+    float: left;
+}
+.navbar-brand{
+    padding: 0;
 }
 .navbar-brand img{
-    height: 3.5rem;
+    height: 100%;
+}
+.nav{
+    padding-left: 3rem;
+    float: right;
+}
+.nav > .dropdown > .btn{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: 3rem;
+    background: var(--colorBrandDarkBlue);
+    color: var(--colorBrandGrey); 
+}
+.collapse.in{
+    display: inline-block;
 }
 main
 {
     background: var(--color10);
     width: 100vw;
-    height: 80vh;
     text-align: left;
     margin: auto;
     padding: 2rem 2rem;
@@ -97,10 +124,10 @@ img {
 }
 #login
 {
-    background: var(--colorA1);
-    width: 100%-4rem;
+    background: var(--colorBrandGrey);
+    width: 100%-3rem;
     text-align: left;
-    margin: 10rem auto;
+    margin: 2rem auto;
     padding: 2.5rem;
     border-radius: 2.5rem;
     /*box-shadow: 0.5rem 0.5rem 2rem var(--colorA2);*/
@@ -112,8 +139,40 @@ img {
     font-size: 2.5rem;
     margin: auto;
 }
+#login > a{
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.5rem;
+    margin: auto;
+    display: block;
+}
+#login > img{
+    width: 100%;
+}
+.control-label{
+    font-size: 1.2rem;
+}
+.checkbox{
+    font-size: 1.3rem;
+    text-align: center;
+}
+.form > .btn{
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    background: var(--colorBrandDarkBlue);
+    color: var(--colorBrandGrey); 
+}
+.container-jobs{
+    width: 50%;
+}
 @media (min-width: 440px){
     #login{
-        width: 40rem;
+        width: 30rem;
+    }
+}
+@media (max-width: 700px){
+    .container-jobs{
+        width: 100%;
     }
 }

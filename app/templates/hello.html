@@ -7,25 +7,36 @@
     Inicio
 {% endblock %}
 
-<!-- {% block header %}
-    {{ super() }}
-    {%if username %}
-        {{ username | capitalize}}  
-    {% endif %}
-{% endblock %} -->
 
 {% block content %}
-    <h1>Visor de IP</h1>
-                    
-    {% if user_ip %}
-        <p>Tu IP es {{ user_ip }}</p>
-    {% else %}
-        <a href="{{ url_for('index') }}">Ir a inicio</a>
-    {% endif %}
-                    
-    <ul>
-        {% for element in options %}
-            <li>{{ element }}</li>
-        {% endfor %}
-    </ul>
+
+
+    <div class=container-jobs>
+        <h2>Trabajos</h2>
+        <ul class="list-group">
+            {% for job in jobs %}
+                <li class="list-group-item">
+                    {{ job.description }}
+                    {% for label in job.tags %}
+                        <span class="label label-primary">{{ label }}</span>
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class=container-jobs>
+        <h2>Solicitudes</h2>
+        <ul class="list-group">
+            {% for request in requests %}
+                <li class="list-group-item">
+                    {{ request.description }}
+                    {% for label in request.tags %}
+                        <span class="label label-primary">{{ label }}</span>
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock %}          

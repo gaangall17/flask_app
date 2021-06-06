@@ -28,12 +28,6 @@
     {% block body %}
 
         <header>
-            <!-- <h1>
-            Control y Scada Webapp
-            </h1>
-            <h2 id="tagline">
-            {% block header %}Interagua |{% endblock %}
-            </h2> -->
             {% if current_user.is_authenticated %}
                 <nav>
                 {% block navbar %}
@@ -62,9 +56,14 @@
             {% endblock %}
 
         </main>
+
+
+
         <footer>
-            MADE WITH LOVE IN ECUADOR
+        FLOWCLUB   -   MADE WITH LOVE IN ECUADOR
         </footer>
+
+        
     {% endblock %}
 
     {% block scripts %}
