@@ -100,7 +100,9 @@ def render_map():
     x_axis_end = x_axis_start + SIZE
     y_axis_end = y_axis_start + SIZE
     
-    map = figure(x_range=(x_axis_start, x_axis_end), y_range=(y_axis_start, y_axis_end), x_axis_type="mercator", y_axis_type="mercator",tooltips=TOOLTIPS,width=1500,height=700)
+    map = figure(x_range=(x_axis_start, x_axis_end), y_range=(y_axis_start, y_axis_end), x_axis_type="mercator", y_axis_type="mercator",tooltips
+
+=TOOLTIPS,width=1200,height=600)
     
     
     map.add_tile(tile_provider)

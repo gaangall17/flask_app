@@ -166,6 +166,26 @@ img {
 .container-jobs{
     width: 50%;
 }
+/* .panel-heading{
+    background-color: var(--colorBrandBlue);
+} */
+.panel-title{
+    display: inline-block;
+    font-size: 2.5rem;
+}
+.new-button{
+    display: inline;
+    float: right;
+}
+.div-request-title{
+    display: inline-block;
+}
+.div-status{
+    display: inline;
+    float: right;
+}
+
+
 @media (min-width: 440px){
     #login{
         width: 30rem;

@@ -11,32 +11,84 @@
 {% block content %}
 
 
-    <div class=container-jobs>
-        <h2>Trabajos</h2>
-        <ul class="list-group">
-            {% for job in jobs %}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>My Jobs</h3>
+
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for job in jobs %}
+  
                 <li class="list-group-item">
-                    {{ job.description }}
-                    {% for label in job.tags %}
-                        <span class="label label-primary">{{ label }}</span>
-                    {% endfor %}
+                    <div>
+                        {{ job.title }}
+                    </div>
+                    <div>
+                        {{ job.description }}
+                    </div>
+                    <div>
+                        {% for label in job.tags %}
+                            <span class="label label-primary">{{ label }}</span>
+                        {% endfor %}
+                    </div>
                 </li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">
+                My Requests
+            </div>
+            <div class="new-button">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    New + 
+                </button>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for request in requests %}
+
+                    <li class="list-group-item">
+                        <div class="div-request-title">
+                            {{ request.title }}
+                        </div>
+                        {% if request.status %}
+                        <div class="div-status">
+                            <span class="label label-primary">{{ request.status }}</span>
+                        </div>
+                        {% endif %}
+                        <!-- <div>
+                            {{ request.description }}
+                        </div> -->
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
-    <div class=container-jobs>
-        <h2>Solicitudes</h2>
-        <ul class="list-group">
-            {% for request in requests %}
-                <li class="list-group-item">
-                    {{ request.description }}
-                    {% for label in request.tags %}
-                        <span class="label label-primary">{{ label }}</span>
-                    {% endfor %}
-                </li>
-            {% endfor %}
-        </ul>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">New Request</h4>
+        </div>
+        <div class="modal-body">
+            {{ wtf.quick_form(new_request_form) }}
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
     </div>
+  </div>
+
 
 {% endblock %}          

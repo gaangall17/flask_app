@@ -1,13 +1,13 @@
 from flask import request, make_response, redirect, render_template, session, url_for, flash
 from flask_login import login_required, current_user
-from app.sql_service import db, get_my_requests, get_my_jobs
+from app.sql_service import db, get_my_requests, get_my_jobs, put_request, delete_job, update_job
 import graph
 
 import unittest
 import time
 
 from app import create_app
-from app.forms import LoginForm
+from app.forms import LoginForm, RequestForm
 from credentials.credentials import get_credentials
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -59,7 +59,7 @@ def index():
     return response     
 
 
-@app.route('/hello', methods=['GET'])
+@app.route('/hello', methods=['GET','POST'])
 @login_required
 def hello():
     user_ip = session.get('user_ip')
@@ -68,17 +68,43 @@ def hello():
 
     jobs = get_my_jobs(username)
     requests = get_my_requests(username)
+    new_request_form = RequestForm()
 
     context = {
         'user_ip': user_ip,
         'options': options,
         'username': username,
         'jobs': jobs,
-        'requests': requests
+        'requests': requests,
+        'new_request_form': new_request_form
     }
+
+    if new_request_form.validate_on_submit():   #Como un Post
+        title = new_request_form.title.data
+        description = new_request_form.description.data
+        requester = username
+        put_request(title,description,requester)
+        return redirect(url_for('hello'))
 
     return render_template('hello.html', **context)  #expand dictionary as a context
 
+@app.route('/jobs/delete/<job_id>', methods=['POST'])
+def delete(job_id):
+    username = current_user.id
+    for job in get_my_requests(username):
+        if job.id == job_id:
+            delete_job(job_id)
+    
+    return redirect(url_for('hello'))
+
+@app.route('/jobs/update/<job_id>/<int:status>', methods=['POST'])
+def update(job_id, status):
+    username = current_user.id
+    for job in get_my_requests(username):
+        if job.id == job_id:
+            update_job(username, job_id, status)
+    
+    return redirect(url_for('hello'))
 
 @app.route('/comm_map')
 @login_required

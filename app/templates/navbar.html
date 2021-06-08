@@ -18,8 +18,8 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('comm_map') }}">Mapa</a></li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('comm_map') }}">Map</a></li>
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                 <li><a href="https://google.com" target="_blank">FAQs</a></li>
                 {% if current_user.is_authenticated %}

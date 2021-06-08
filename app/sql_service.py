@@ -38,6 +38,7 @@ class Jobs(db.Model):
     estimated_hours = db.Column(db.Float())
     real_hours = db.Column(db.Float())
     tags = db.Column(db.ARRAY(db.String()))
+    title = db.Column(db.String())
 
 
 def get_users():
@@ -56,15 +57,25 @@ def put_user(userdata):
     db.session.add(user)
     db.session.commit()
 
-def fix_json_array(obj, attr):
-    arr = getattr(obj, attr)
-    if isinstance(arr, list) and len(arr) > 1 and arr[0] == '{':
-        arr = arr[1:-1]
-        arr = ''.join(arr).split(",")
-        setattr(obj,attr, arr)
-
 def get_my_requests(username):
-    return Jobs.query.filter_by(requester_user=username)
+    return Jobs.query.filter_by(requester_user=username).all()
 
 def get_my_jobs(username):
-    return Jobs.query.filter_by(responsable_user=username)
+    return Jobs.query.filter_by(responsable_user=username).all()
+
+def put_request(title, description, requester):
+    job = Jobs(
+        title = title,
+        description = description,
+        requester_user = requester
+    )
+    print(job.id)
+    db.session.add(job)
+    db.session.commit()
+    print(job.id)
+
+def delete_job(job_id):
+    pass
+
+def update_job(username, job_id, status):
+    pass
