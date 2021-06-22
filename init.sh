@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pip install -r requierements.txt
 & ./flask/Scripts/Activate.ps1
+pip install -r requirements.txt
 
 $env:FLASK_APP = "application.py"
 $env:FLASK_DEBUG = 1

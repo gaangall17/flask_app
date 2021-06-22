@@ -35,59 +35,25 @@ body
     font-family: 'Trebuchet MS';
     font-size: 16px;
     margin: 0;
-    padding: 0;
+    padding: 5rem 0 0 0;
 }
 header
 {
-    background: var(--color3);
-    color: var(--color9);
     margin: 0;
     /* padding: 2rem 1rem; */
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: left;
     display: block;
 }
-/* header #tagline
-{
-    padding: 1rem 0 0 0;
-    font-weight: normal;
-    font-size: 1rem;
-    height: 10vh;
-} */
-/* .navbar {
-    display: block;
-    height: 8vh;
-    background: var(--colorA3);
-    margin: auto;
-    border: none;
-}
-.navbar > .container{
-    padding: auto 1.5rem;
-    height: 8vh;
-}
-.navbar-collapse > .nav{
-    height: 8vh;
-}
-.nav li a{
-    height: 8vh;
-    line-height: 3rem;
-} */
 .navbar-inverse {
     background-color: var(--colorBrandDarkBlue);
 }
-.navbar-header{
-    float: left;
-}
 .navbar-brand{
-    padding: 0;
+    padding: 0.2rem;
 }
 .navbar-brand img{
     height: 100%;
-}
-.nav{
-    padding-left: 3rem;
-    float: right;
 }
 .nav > .dropdown > .btn{
     margin-top: 1rem;
@@ -96,20 +62,14 @@ header
     background: var(--colorBrandDarkBlue);
     color: var(--colorBrandGrey); 
 }
-.collapse.in{
-    display: inline-block;
-}
 main
 {
     background: var(--color10);
     width: 100vw;
     text-align: left;
     margin: auto;
-    padding: 2rem 2rem;
-}
-#post
-{
-    font-size: 2rem;
+    /* padding: 1rem 1rem; */
+    display: block;
 }
 footer
 {
