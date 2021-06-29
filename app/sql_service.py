@@ -5,6 +5,9 @@ from sqlalchemy import MetaData
 metadata = MetaData(schema="control_scada")
 db = SQLAlchemy(metadata=metadata)
 
+metadata_am = MetaData(schema="asset_mng")
+db_am = SQLAlchemy(metadata=metadata_am)
+
 class Roles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
@@ -27,7 +30,7 @@ class Users(db.Model):
 
 class Jobs(db.Model):
     __tablename__ = "jobs"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     requester_user = db.Column(db.String())
     description = db.Column(db.String())
     datetime_created = db.Column(db.DateTime())
@@ -39,6 +42,42 @@ class Jobs(db.Model):
     real_hours = db.Column(db.Float())
     tags = db.Column(db.ARRAY(db.String()))
     title = db.Column(db.String())
+
+
+class Components(db_am.Model):
+    __tablename__ = "components"
+    id = db_am.Column(db_am.Integer(), primary_key=True)
+    station = db_am.Column(db_am.String())
+    sit = db_am.Column(db_am.String())
+    cod_eb = db_am.Column(db_am.String())
+    p1 = db_am.Column(db_am.String())
+    cod_p1 = db_am.Column(db_am.String())
+    p2 = db_am.Column(db_am.String())
+    cod_p2 = db_am.Column(db_am.String())
+    p3 = db_am.Column(db_am.String())
+    cod_p3 = db_am.Column(db_am.String())
+    p6 = db_am.Column(db_am.String())
+    vfp = db_am.Column(db_am.String())
+    class_type = db_am.Column(db_am.String())
+    asset_component = db_am.Column(db_am.String())
+    component = db_am.Column(db_am.String())
+    brand = db_am.Column(db_am.String())
+    model = db_am.Column(db_am.String())
+    serial = db_am.Column(db_am.String())
+    fracttal_code = db_am.Column(db_am.String())
+    name = db_am.Column(db_am.String())
+    type = db_am.Column(db_am.String())
+    classification = db_am.Column(db_am.String())
+    vfp_id = db_am.Column(db_am.String())
+    c_health = db_am.Column(db_am.Integer())
+    c_environment = db_am.Column(db_am.Integer())
+    c_business = db_am.Column(db_am.Integer())
+    criticity = db_am.Column(db_am.Integer())
+    frequency = db_am.Column(db_am.Integer())
+    risk = db_am.Column(db_am.Integer())
+    condition = db_am.Column(db_am.Integer())
+    antiquity = db_am.Column(db_am.Integer())
+    performance = db_am.Column(db_am.Integer())
 
 
 def get_users():
@@ -79,3 +118,7 @@ def delete_job(job_id):
 
 def update_job(username, job_id, status):
     pass
+
+def get_components():
+    return Components.query.all()
+
