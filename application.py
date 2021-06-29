@@ -1,6 +1,8 @@
 from flask import request, make_response, redirect, render_template, session, url_for, flash
 from flask_login import login_required, current_user
 from app.sql_service import db, get_my_requests, get_my_jobs, put_request, delete_job, update_job
+from app.sql_service import db_am, get_components
+
 import graph
 
 import unittest
@@ -16,7 +18,7 @@ app = create_app()
 app.config['SQLALCHEMY_DATABASE_URI'] = get_credentials('postgreAWS')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
-
+db_am.init_app(app)
 #from app.sql_service import get_users
 
 #print(get_users())
@@ -127,3 +129,14 @@ def dashboard():
         'username': username
     }
     return render_template('dashboard.html', **context)
+
+@app.route('/assets', methods=['GET','POST'])
+@login_required
+def assets():
+    username = current_user.id
+    components = get_components()
+    context = {
+        'components': components,
+        'username': username
+    }
+    return render_template('assets.html', **context)
