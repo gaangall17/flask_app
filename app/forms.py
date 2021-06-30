@@ -28,3 +28,8 @@ class RequestForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Descripción', validators=[DataRequired()])
     submit = SubmitField('Submit Request')
+
+class AssetForm(FlaskForm):
+    vfp_id = StringField('VFD ID')
+    name = StringField('Nombre', default='Asset de Prueba')
+    submit = SubmitField('Guardar')

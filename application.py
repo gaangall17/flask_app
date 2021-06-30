@@ -9,7 +9,7 @@ import unittest
 import time
 
 from app import create_app
-from app.forms import LoginForm, RequestForm
+from app.forms import LoginForm, RequestForm, AssetForm
 from credentials.credentials import get_credentials
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -135,8 +135,10 @@ def dashboard():
 def assets():
     username = current_user.id
     components = get_components()
+    new_asset_form = AssetForm()
     context = {
         'components': components,
-        'username': username
+        'username': username,
+        'asset_form': new_asset_form
     }
     return render_template('assets.html', **context)

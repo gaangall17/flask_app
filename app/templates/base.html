@@ -36,9 +36,13 @@
         <main id="wrapper">
             
             <div>
+                {% if current_user.is_authenticated %}
+                <nav>
                 {% block sidebar %}
                     {% include 'sidebar.html' %}
                 {% endblock %}
+                </nav>
+                {% endif %}
             </div>
 
             <div id="page-content-wrapper">

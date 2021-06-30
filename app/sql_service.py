@@ -120,5 +120,5 @@ def update_job(username, job_id, status):
     pass
 
 def get_components():
-    return Components.query.all()
+    return Components.query.order_by(Components.vfp_id.asc()).all()
 
