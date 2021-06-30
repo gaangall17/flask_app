@@ -6,11 +6,12 @@
     Sign Up
 {% endblock %}
 
-{% block content %}
+{% block body %}
     <div class="container" id="login">
 
         <img src="{{ url_for('static', filename='images/login_logo.png') }}"
         alt="Login Logo">
+        {% include 'alert.html' %}
         {{ wtf.quick_form(signup_form) }}
         <a href="{{ url_for('auth.login') }}">Already a user? Log In</a>
     </div>        

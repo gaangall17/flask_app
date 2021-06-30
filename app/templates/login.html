@@ -6,7 +6,7 @@
     Login
 {% endblock %}
 
-{% block content %}
+{% block body %}
     <div class="container" id="login">
         <!-- <form action="{{ url_for('hello') }}" method="POST">
             {{ login_form.username.label }}
@@ -15,6 +15,7 @@
         </form> -->
         <img src="{{ url_for('static', filename='images/login_logo.png') }}"
         alt="Login Logo">
+        {% include 'alert.html' %}
         {{ wtf.quick_form(login_form) }}
         <a href="{{ url_for('auth.signup') }}">Not a user? Register here</a>
     </div>        

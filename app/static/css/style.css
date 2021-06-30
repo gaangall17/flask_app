@@ -19,7 +19,9 @@
     --colorBrandBlue: #0d21a1;
     --colorBrandYellow: #eec643;
     --colorBrandBlack: #141414;
-}
+    --sidebarWidth: 200px;
+    --minusSidebarWidth: -200px;
+}   
 * {
     box-sizing: border-box;
     margin: 0;
@@ -50,10 +52,15 @@ header
     background-color: var(--colorBrandDarkBlue);
 }
 .navbar-brand{
-    padding: 0.2rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
 }
-.navbar-brand img{
-    height: 100%;
+.navbar-brand-logo img{
+    height: 4rem;
+    padding-top: 1rem;
+    display: inline-block;
 }
 .nav > .dropdown > .btn{
     margin-top: 1rem;
@@ -62,6 +69,32 @@ header
     background: var(--colorBrandDarkBlue);
     color: var(--colorBrandGrey); 
 }
+
+#sidebar-btn{
+    background: var(--colorBrandDarkBlue);
+    border-width: 0.1rem;
+    border-color: var(--colorBrandBlack);
+    display: inline-block;
+    margin: 0rem;
+}
+
+#navbar-list ul li a:hover{
+    background: var(--colorBrandBlack);
+    color: var(--colorBrandGrey);
+}
+
+.dropdown-menu{
+    background: var(--colorBrandDarkBlue);
+}
+
+.dropdown-menu li a{
+    color: var(--colorBrandGrey)
+}
+
+.dropdown-menu .divider{
+    background: var(--colorBrandGrey)
+}
+
 main
 {
     background: var(--color10);
@@ -131,29 +164,34 @@ img {
 } */
 .panel-title{
     display: inline-block;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 .new-button{
-    display: inline;
     float: right;
+    height: 1.5rem;
 }
 .div-request-title{
     display: inline-block;
 }
 .div-status{
-    display: inline;
     float: right;
 }
+
+#wrapper{
+    margin: 0rem;
+    width: 100% - var(--sidebarWidth);
+}
+
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 200px;
+    left: var(--sidebarWidth);
     width: 0;
     height: 100%;
-    margin-left: -200px;
+    margin-left: var(--minusSidebarWidth);
     overflow-y: auto;
-    background: #000;
+    background: var(--colorBrandBlack);
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -161,56 +199,48 @@ img {
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 200px;
+    width: var(--sidebarWidth);
 }
 
 .sidebar-nav {
     position: absolute;
-    top: 0;
-    width: 200px;
+    top: 1rem;
+    width:  var(--sidebarWidth);
     margin: 0;
     padding: 0;
     list-style: none;
+    transition: all 0.3s;
 }
 
+#sidebar-wrapper.active,
+#sidebar-list.active{
+    width: 200px;
+  }
+
 .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+    text-indent: 2rem;
+    line-height: 4rem;
 }
 
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: var(--colorBrandGrey);
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #fff;
-    background: rgba(255,255,255,0.2);
+    color: var(--colorBrandBlack);
+    background: var(--colorBrandYellow);
 }
 
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;
+    background: var(--colorBrandYellow)
 }
 
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-    color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
-
-#asset_table > tbody > tr > th{
+#asset_table>tbody>tr>td{
     font-size: 1rem;
 }
 
@@ -251,4 +281,9 @@ img {
         position: relative;
         margin-right: 0;
     }
+
+    #sidebar-btn{
+        display: none;
+    }
+
 }

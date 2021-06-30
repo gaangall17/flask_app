@@ -1,0 +1,17 @@
+<script>
+// let sidebar_btn = document.getElementById("sidebar-btn");
+// let sidebar_nav = document.getElementById("sidebar-wrapper");
+
+// sidebar_btn.onclick = function(){
+//     sidebar_nav.classList.toggle("active");
+
+// }
+
+$(document).ready(function() {
+   $("#sidebar-btn").on("click", function() {
+     $("#sidebar-wrapper").toggleClass("active");
+     $("#sidebar-list").toggleClass("active");
+     $(this).toggleClass("active");
+   });
+ });
+</script>

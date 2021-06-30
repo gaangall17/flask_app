@@ -1,6 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
+
           <button type="button" 
             class="navbar-toggle collapsed" 
             data-toggle="collapse" 
@@ -11,9 +12,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('index') }}">
+            <a class="navbar-brand" >
+              <button type="button" id="sidebar-btn" class="btn btn-info navbar-btn">
+                <i class="glyphicon glyphicon-option-horizontal"></i>
+              </button>
+              <a class="navbar-brand-logo" href="{{ url_for('index') }}">               
                 <img src="{{ url_for('static', filename='images/bar_logo.png') }}"
-                     alt="Veolia Logo">
+                alt="Veolia Logo">
+              </a>
             </a>
         </div>
 
