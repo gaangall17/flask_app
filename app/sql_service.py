@@ -9,9 +9,16 @@ metadata_am = MetaData(schema="asset_mng")
 db_am = SQLAlchemy(metadata=metadata_am)
 
 class Roles(db.Model):
+    __tablename__ = "roles"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     users = db.relationship('Users', backref='roles', lazy=True)
+
+class Status(db.Model):
+    __tablename__ = "user_status"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    users = db.relationship('Users', backref='status', lazy=True)
 
 class Users(db.Model):
     __tablename__ = "users"
@@ -24,6 +31,8 @@ class Users(db.Model):
     role_id = db.Column(db.Integer(), db.ForeignKey('roles.id'))
     phone_work = db.Column(db.String())
     phone_personal = db.Column(db.String())
+    shift = db.Column(db.Boolean())
+    status_id = db.Column(db.Integer(), db.ForeignKey('user_status.id'))
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -85,6 +94,21 @@ def get_users():
 
 def get_user(username):
     return Users.query.filter_by(username=username).first()
+
+def get_profile(username):
+    return Users.query.filter_by(username=username).first()
+
+def get_status_list():
+    return Status.query.all()
+
+def update_profile(profile_form):
+    user_db = Users.query.filter_by(profile_form.username.data).first()
+    user_db.name = profile_form.name.data
+    user_db.last_name = profile_form.last_name.data
+    user_db.email = profile_form.email.data
+    user_db.phone_work = profile_form.phone_work.data
+    user_db.status_id = profile_form.status.id.data
+    db.session.commit()
 
 def put_user(userdata):
     user = Users(

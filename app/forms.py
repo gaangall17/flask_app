@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 class LoginForm(FlaskForm):
@@ -33,3 +33,13 @@ class AssetForm(FlaskForm):
     vfp_id = StringField('VFD ID')
     name = StringField('Nombre', default='Asset de Prueba')
     submit = SubmitField('Guardar')
+
+class UserProfileForm(FlaskForm):
+    username = StringField('Username', render_kw={'readonly': True})
+    name = StringField('Name')
+    last_name = StringField('Last Name')
+    email = StringField('Email')
+    phone = StringField('Phone')
+    role = StringField('Role', render_kw={'readonly': True})
+    status = SelectField('Status', coerce=int, validators=[DataRequired()])
+    submit = SubmitField('Actualizar')

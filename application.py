@@ -1,6 +1,7 @@
 from flask import request, make_response, redirect, render_template, session, url_for, flash
 from flask_login import login_required, current_user
-from app.sql_service import db, get_my_requests, get_my_jobs, put_request, delete_job, update_job
+from app.sql_service import db, get_my_requests, get_my_jobs, get_profile, put_request, delete_job, update_job
+from app.sql_service import get_profile, get_status_list, update_profile
 from app.sql_service import db_am, get_components
 
 import graph
@@ -9,7 +10,7 @@ import unittest
 import time
 
 from app import create_app
-from app.forms import LoginForm, RequestForm, AssetForm
+from app.forms import LoginForm, RequestForm, AssetForm, UserProfileForm
 from credentials.credentials import get_credentials
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -142,3 +143,32 @@ def assets():
         'asset_form': new_asset_form
     }
     return render_template('assets.html', **context)
+
+@app.route('/profile', methods=['GET','POST'])
+@login_required
+def profile():
+    username = current_user.id
+    profile = get_profile(username)
+    status_list = get_status_list()
+    status_choice_list = [(i.id, i.name) for i in status_list]
+    profile_form = UserProfileForm()
+    profile_form.username.data = profile.username
+    profile_form.name.data = profile.name
+    profile_form.last_name.data = profile.last_name
+    profile_form.email.data = profile.email
+    profile_form.phone.data = profile.phone_work
+    profile_form.role.data = profile.roles.name
+    profile_form.status.data = profile.status.name
+    profile_form.status.choices = status_choice_list
+
+    context = {
+        'profile_form': profile_form,
+        'username': username
+    }
+
+    if profile_form.validate_on_submit():   #Como un Post
+        update_profile(profile_form)
+        return redirect(url_for('profile'))
+
+
+    return render_template('profile.html', **context)

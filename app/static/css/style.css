@@ -115,6 +115,12 @@ footer
 img {
     max-width: 400px;
 }
+
+#profile_form{
+    width: 50%;
+    margin: auto;
+}
+
 #login
 {
     background: var(--colorBrandGrey);
