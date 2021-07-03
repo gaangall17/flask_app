@@ -158,7 +158,7 @@ def profile():
     profile_form.email.data = profile.email
     profile_form.phone.data = profile.phone_work
     profile_form.role.data = profile.roles.name
-    profile_form.status.data = profile.status.name
+    # profile_form.status.data = profile.status.name
     profile_form.status.choices = status_choice_list
 
     context = {
