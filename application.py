@@ -5,6 +5,7 @@ from app.sql_service import get_profile, get_status_list, update_profile
 from app.sql_service import db_am, get_components
 
 import graph
+import csv
 
 import unittest
 import time
@@ -137,12 +138,29 @@ def assets():
     username = current_user.id
     components = get_components()
     new_asset_form = AssetForm()
+    positions = compute_positions(components)
     context = {
         'components': components,
         'username': username,
-        'asset_form': new_asset_form
+        'asset_form': new_asset_form,
+        'positions': positions
     }
     return render_template('assets.html', **context)
+
+@app.route('/assets_positions', methods=['GET','POST'])
+@login_required
+def assets_positions():
+    username = current_user.id
+    components = get_components()
+    new_asset_form = AssetForm()
+    positions = compute_positions(components)
+    context = {
+        'components': components,
+        'username': username,
+        'asset_form': new_asset_form,
+        'positions': positions
+    }
+    return render_template('assets_positions.html', **context)
 
 @app.route('/profile', methods=['GET','POST'])
 @login_required
@@ -172,3 +190,62 @@ def profile():
 
 
     return render_template('profile.html', **context)
+
+
+def compute_positions(components):
+    positions_name = []
+    positions_level = []
+    position_desc = []
+    positions_parent = []
+    
+    result = []
+    for component in components:
+        print("-----")
+        print(component.vfp_id)
+        vfp_wo_loc = component.vfp_id[9:]
+        position_list = vfp_wo_loc.rsplit("-",3)
+        position_list_length = len(position_list)
+        n = 0
+        for i in range(position_list_length):
+            code = ""
+            for j in range(i+1):
+                if j != 0:
+                    code += "-"
+                code += position_list[j]
+            position_code = str(i+4) + "-" + code
+            print(position_code)
+            if position_code not in positions_name:
+                positions_name.append(position_code)
+                if i == 0:
+                    position_desc.append(component.station)
+                elif i == 1:
+                    position_desc.append(component.p1)
+                elif i == 2:
+                    position_desc.append(component.p2)
+                elif i == 3:
+                    if str(component.name) == str(component.p3):
+                        position_desc.append(str(component.name))
+                    else:
+                        position_desc.append(str(component.name) + " " + str(component.p3))
+                else:
+                    position_desc.append("-")
+                if i == 3:
+                    positions_level.append("VFP")
+                else:
+                    positions_level.append("P")
+                if i == 0:
+                    parent_code = "-"
+                else:
+                    parent_code = str(i+3) + "-" + vfp_wo_loc.rsplit("-",4-i)[0]
+                positions_parent.append(parent_code)
+                print(parent_code)
+            print("-----")
+    for i in range(len(positions_name)):
+        result.append([positions_name[i],position_desc[i],positions_level[i],positions_parent[i]])
+    writecsv('outputs/positions.csv',result)
+    return result
+
+def writecsv(name, values):
+    with open(name, 'w', newline='') as csvfile:
+        csvdata = csv.writer(csvfile, delimiter=',', quotechar='|')
+        csvdata.writerows(values)
