@@ -43,3 +43,7 @@ class UserProfileForm(FlaskForm):
     role = StringField('Role', render_kw={'readonly': True})
     status = SelectField('Status', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Actualizar')
+
+#area = QuerySelectField(query_factory=Area.objects.all,
+#                            get_pk=lambda a: a.id,
+#                            get_label=lambda a: a.name)

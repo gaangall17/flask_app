@@ -167,6 +167,7 @@ def assets_positions():
 def profile():
     username = current_user.id
     profile = get_profile(username)
+    print(profile.status.name)
     status_list = get_status_list()
     status_choice_list = [(i.id, i.name) for i in status_list]
     profile_form = UserProfileForm()
@@ -176,7 +177,7 @@ def profile():
     profile_form.email.data = profile.email
     profile_form.phone.data = profile.phone_work
     profile_form.role.data = profile.roles.name
-    # profile_form.status.data = profile.status.name
+    profile_form.status.data = profile.status.name
     profile_form.status.choices = status_choice_list
 
     context = {
