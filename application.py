@@ -165,11 +165,11 @@ def assets_positions():
 @app.route('/profile', methods=['GET','POST'])
 @login_required
 def profile():
+    
     username = current_user.id
     profile = get_profile(username)
     print(profile.status.name)
-    status_list = get_status_list()
-    status_choice_list = [(i.id, i.name) for i in status_list]
+
     profile_form = UserProfileForm()
     profile_form.username.data = profile.username
     profile_form.name.data = profile.name
@@ -177,20 +177,29 @@ def profile():
     profile_form.email.data = profile.email
     profile_form.phone.data = profile.phone_work
     profile_form.role.data = profile.roles.name
-    profile_form.status.data = profile.status.name
-    profile_form.status.choices = status_choice_list
+    profile_form.status.data = str(profile.status.id)
 
+    profile_form.status.choices = [(str(i.id), str(i.name)) for i in get_status_list()]
+    
     context = {
         'profile_form': profile_form,
-        'username': username
+        'username': username,
+        'profile': profile
     }
 
-    if profile_form.validate_on_submit():   #Como un Post
-        update_profile(profile_form)
-        return redirect(url_for('profile'))
-
-
     return render_template('profile.html', **context)
+
+@app.route('/edit_profile', methods=['POST'])
+def edit_profile():
+    profile_form = UserProfileForm(request.form)
+    profile_form.status.choices = [(str(i.id), str(i.name)) for i in get_status_list()]
+    print(profile_form)
+    if profile_form.validate_on_submit():
+        update_profile(profile_form)
+        print(profile_form)
+    else:
+        print(profile_form.errors)
+    return redirect(url_for('profile'))
 
 
 def compute_positions(components):

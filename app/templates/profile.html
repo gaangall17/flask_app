@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
+{% from 'macros.html' import render_field %}
 
 {% block title %}
     {{ super() }}
@@ -7,9 +8,37 @@
 {% endblock %}
 
 {% block content %}
-    <div id="profile_form">
+
+    <!-- <div id="profile_form" method="post">
         {{ wtf.quick_form(profile_form) }}
-    </div>
+    </div> -->
+
+    <form method="post" action="{{ url_for('edit_profile') }}" id="profile_form">
+        <!-- {{ profile_form.csrf_token }}
+        {{ wtf.form_field(profile_form.username, value=profile.username) }}
+        {{ wtf.form_field(profile_form.name, value=profile.name) }}
+        {{ wtf.form_field(profile_form.last_name, value=profile.last_name) }}
+        {{ wtf.form_field(profile_form.email, value=profile.email) }}
+        {{ wtf.form_field(profile_form.phone, value=profile.phone_work) }}
+        {{ wtf.form_field(profile_form.role, value=profile.roles.name) }}
+        {{ wtf.form_field(profile_form.status) }}
+        {{ wtf.form_field(profile_form.submit, button_map={'submit':'success'}) }} -->
+        <!-- {{ render_field(profile_form.username, value=profile.username) }}
+        {{ render_field(profile_form.name, value=profile.name) }}
+        {{ render_field(profile_form.last_name, value=profile.last_name) }}
+        {{ render_field(profile_form.email, value=profile.email) }}
+        {{ render_field(profile_form.phone, value=profile.phone_work) }}
+        {{ render_field(profile_form.role, value=profile.roles.name) }}
+        {{ render_field(profile_form.status) }}
+        {{ render_field(profile_form.submit, button_map={'submit':'success'}) }} -->
+        {{ wtf.quick_form(profile_form) }}
+    </form>
+
+    <script>
+        if ( document.querySelector('select') ) {
+            document.querySelector('select').value = "{{ profile.status.id }}";
+        }
+    </script>
 
  
 {% endblock %} 

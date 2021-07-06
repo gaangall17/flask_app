@@ -102,14 +102,15 @@ def get_status_list():
     return Status.query.all()
 
 def update_profile(profile_form):
-    username = profile_form.username.data.get
-    user_db = Users.query.filter_by(username).first()
+    username = profile_form.username.data
+    user_db = Users.query.filter_by(username=username).first()
     user_db.name = profile_form.name.data
     user_db.last_name = profile_form.last_name.data
     user_db.email = profile_form.email.data
-    user_db.phone_work = profile_form.phone_work.data
-    user_db.status_id = profile_form.status.id.data
+    user_db.phone_work = profile_form.phone.data
+    user_db.status_id = profile_form.status.data
     db.session.commit()
+    
 
 def put_user(userdata):
     user = Users(
