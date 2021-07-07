@@ -138,12 +138,10 @@ def assets():
     username = current_user.id
     components = get_components()
     new_asset_form = AssetForm()
-    positions = compute_positions(components)
     context = {
         'components': components,
         'username': username,
         'asset_form': new_asset_form,
-        'positions': positions
     }
     return render_template('assets.html', **context)
 
@@ -168,7 +166,6 @@ def profile():
     
     username = current_user.id
     profile = get_profile(username)
-    print(profile.status.name)
 
     profile_form = UserProfileForm()
     profile_form.username.data = profile.username
@@ -193,10 +190,8 @@ def profile():
 def edit_profile():
     profile_form = UserProfileForm(request.form)
     profile_form.status.choices = [(str(i.id), str(i.name)) for i in get_status_list()]
-    print(profile_form)
     if profile_form.validate_on_submit():
         update_profile(profile_form)
-        print(profile_form)
     else:
         print(profile_form.errors)
     return redirect(url_for('profile'))
