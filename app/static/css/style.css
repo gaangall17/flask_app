@@ -58,6 +58,14 @@ header
     color: var(--colorBrandBlack);
 }
 
+.nav-link{
+    color: var(--colorBrandGrey);
+}
+
+.nav>li>a:hover, .nav>li>a:active {
+    color: var(--colorBrandBlack);
+    background-color: var(--colorBrandYellow);
+}
 
 .navbar-brand{
     padding-left: 1rem;
@@ -67,7 +75,7 @@ header
 }
 .navbar-brand-logo img{
     height: 4rem;
-    padding-top: 1rem;
+    padding: 0.1rem;
     display: inline-block;
 }
 .nav > .dropdown > .btn{
@@ -262,6 +270,15 @@ img {
     padding: 10px;
     position: relative;
 }
+
+.navbar-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    fill: yellow;
+}
+
+
+
 
 @media (min-width: 440px){
     #login{

@@ -11,22 +11,10 @@
 {% block content %}
     {{ super() }}
 
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <div class="panel-title">
-                Assets - VFD
-            </div>
-            <div class="new-button">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    New + 
-                </button>
-            </div>
-
-        </div>
-        <div class="panel-body">
-            <table id="asset_table" class="table table-striped table-hover">
+            <table id="asset_table" class="table table-striped">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>VFD ID</th>
                         <th>Nombre Asset</th>
                         <th>Nombre Componente</th>
@@ -39,6 +27,7 @@
                 <tbody>
                     {% for component in components %}
                     <tr>
+                        <td class="select-checkbox"></td>
                         <td>{{ component.vfp_id }}</td>
                         <td>{{ component.asset_component }}</td>
                         <td>{{ component.name }}</td>
@@ -57,9 +46,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-            
-        </div>
-    </div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -87,16 +73,69 @@
     {{ super() }}
     <script>
         $(document).ready(function () {
-            $('#asset_table').DataTable({
-                columns: [
-                null,
-                null,
-                null,
-                null,
-                null,
-                {searchable: false},
-                {searchable: false}]
+            $('#asset_table').dataTable({
+                columnsDefs: [
+                    {
+                        orderable: false,
+                        className: "select-checkbox",
+                        targets: [0],
+                        defaultContent: '',
+                        data: null
+                    },
+                    {
+                        searchable: false,
+                        targets: [5, 6]
+                    },
+                    {
+                        orderable: false,
+                        targets: [2, 3]
+                    },
+                ],
+                select: {
+                            style: 'multi',
+                            selector: 'td:first-child'    
+                        },
+                order: [[1, 'asc']]
             });
         });
     </script>
+<script>
+    // $(document).ready(function (){
+    //     var table = $('#asset_table').DataTable({
+    //     'ajax': '/lab/jquery-datatables-checkboxes/ids-arrays.txt',
+    //     'columnDefs': [
+    //         {
+    //             'targets': 0,
+    //             'checkboxes': {
+    //                 'selectRow': true
+    //             }
+    //         }
+    //     ],
+    //     'select': {
+    //         'style': 'multi'
+    //     },
+    //     'order': [[1, 'asc']]
+    //     });
+    
+    
+        // Handle form submission event
+//         $('#frm-example').on('submit', function(e){
+//         var form = this;
+    
+//         var rows_selected = table.column(0).checkboxes.selected();
+    
+//         // Iterate over all selected checkboxes
+//         $.each(rows_selected, function(index, rowId){
+//             // Create a hidden element
+//             $(form).append(
+//                 $('<input>')
+//                     .attr('type', 'hidden')
+//                     .attr('name', 'id[]')
+//                     .val(rowId)
+//             );
+//         });
+//         });
+//     });
+</script>
+
 {% endblock %}
