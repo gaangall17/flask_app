@@ -59,7 +59,13 @@ header
 }
 
 .nav-link{
-    color: var(--colorBrandGrey);
+    color: var(--colorBrandGrey) !important;
+}
+.nav-link:hover,
+.nav-link:active,
+.open{
+    color: var(--colorBrandBlack) !important;
+    background-color: var(--colorBrandYellow) !important;
 }
 
 .nav>li>a:hover, .nav>li>a:active {
@@ -100,15 +106,23 @@ header
 }
 
 .dropdown-menu{
-    background: var(--colorBrandDarkBlue);
+    background-color: var(--colorBrandDarkBlue) !important;
+    color: var(--colorBrandDarkBlue) !important;
+}
+.dropdown-menu{
+    background-color: var(--colorBrandDarkBlue) !important;
 }
 
 .dropdown-menu li a{
-    color: var(--colorBrandGrey)
+    color: var(--colorBrandGrey) !important;
+}
+.dropdown-menu li a:hover{
+    color: var(--colorBrandBlack) !important;
+    background-color: var(--colorBrandYellow) !important;
 }
 
 .dropdown-menu .divider{
-    background: var(--colorBrandGrey)
+    background: var(--colorBrandGrey) !important;
 }
 
 main
@@ -277,6 +291,16 @@ img {
     fill: yellow;
 }
 
+thead input {
+    width: 100%;
+}
+
+table.dataTable tbody tr.selected,
+table.dataTable tbody th.selected,
+table.dataTable tbody td.selected {
+    color: var(--colorBrandGrey) !important;
+    background-color: var(--colorBrandDarkBlue) !important;
+}
 
 
 

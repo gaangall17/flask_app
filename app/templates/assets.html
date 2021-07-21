@@ -73,7 +73,35 @@
     {{ super() }}
     <script>
         $(document).ready(function () {
-            $('#asset_table').dataTable({
+            $('#asset_table thead tr').clone(true).appendTo( '#asset_table thead' );
+            
+            var isFirstColumn = true;
+
+            $('#asset_table thead tr:eq(1) th').each( function (i) {
+                
+                
+                if(!isFirstColumn){
+                    var title = $(this).text();
+                    $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+    
+                    $( 'input', this ).on( 'keyup change', function () {
+                        console.log("keyupchange");
+                        if ( table.column(i).search() !== this.value ) {
+                            table
+                                .column(i)
+                                .search( this.value )
+                                .draw();
+                        }
+                    } );
+                }else{
+                    isFirstColumn = false;
+                }
+                
+            });
+
+
+
+            var table = $('#asset_table').DataTable({
                 columnsDefs: [
                     {
                         orderable: false,
@@ -95,47 +123,56 @@
                             style: 'multi',
                             selector: 'td:first-child'    
                         },
-                order: [[1, 'asc']]
+                order: [[1, 'asc']],
+                orderCellsTop: true,
+                fixedHeader: true
             });
         });
+
+
+    //     $(document).ready(function (){
+    //      var table = $('#asset_table').DataTable({
+    //      'ajax': '/lab/jquery-datatables-checkboxes/ids-arrays.txt',
+    //      'columnDefs': [
+    //          {
+    //              'targets': 0,
+    //              'checkboxes': {
+    //                  'selectRow': true
+    //              }
+    //          }
+    //      ],
+    //      'select': {
+    //          'style': 'multi'
+    //      },
+    //      'order': [[1, 'asc']]
+    //      });
+    
+    
+    //     // Handle form submission event
+    //      $('#frm-example').on('submit', function(e){
+    //      var form = this;
+    
+    //      var rows_selected = table.column(0).checkboxes.selected();
+    
+    //      // Iterate over all selected checkboxes
+    //      $.each(rows_selected, function(index, rowId){
+    //          // Create a hidden element
+    //          $(form).append(
+    //              $('<input>')
+    //                  .attr('type', 'hidden')
+    //                  .attr('name', 'id[]')
+    //                  .val(rowId)
+    //          );
+    //      });
+    //      });
+    //  });
+
+
+
+
+
     </script>
-<script>
-    // $(document).ready(function (){
-    //     var table = $('#asset_table').DataTable({
-    //     'ajax': '/lab/jquery-datatables-checkboxes/ids-arrays.txt',
-    //     'columnDefs': [
-    //         {
-    //             'targets': 0,
-    //             'checkboxes': {
-    //                 'selectRow': true
-    //             }
-    //         }
-    //     ],
-    //     'select': {
-    //         'style': 'multi'
-    //     },
-    //     'order': [[1, 'asc']]
-    //     });
-    
-    
-        // Handle form submission event
-//         $('#frm-example').on('submit', function(e){
-//         var form = this;
-    
-//         var rows_selected = table.column(0).checkboxes.selected();
-    
-//         // Iterate over all selected checkboxes
-//         $.each(rows_selected, function(index, rowId){
-//             // Create a hidden element
-//             $(form).append(
-//                 $('<input>')
-//                     .attr('type', 'hidden')
-//                     .attr('name', 'id[]')
-//                     .val(rowId)
-//             );
-//         });
-//         });
-//     });
-</script>
+
+
 
 {% endblock %}
